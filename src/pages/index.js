@@ -10,7 +10,7 @@ const IndexPage = ({ data }) => (
     <h1>Hi people</h1>
     <p>Welcome to your new Gatsby site.</p>
     <p>Now go build something great.</p>
-    <ul>
+    <ul class="allArticles">
       {data.allStrapiArticle.edges.map(document => (
         <li key={document.node.id}>
           <h2>

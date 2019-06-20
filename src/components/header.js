@@ -1,9 +1,28 @@
-import { Link } from "gatsby"
+import { Link, graphql, StaticQuery } from "gatsby"
 import PropTypes from "prop-types"
 import React from "react"
+import Img from 'gatsby-image'
+import NavHeader from '../components/NavHeader'
 
 const Header = ({ siteTitle }) => (
-  <header
+  <StaticQuery 
+    query={graphql`  
+  query HeaderQuery {
+    strapiHeaderhome {
+          id
+          title
+          headerimage {
+            childImageSharp {
+              fluid(maxWidth: 1200, maxHeight: 400) {
+                ...GatsbyImageSharpFluid
+              }
+            }
+          }
+    }
+  }
+`}
+  render={data => (
+    <header
     style={{
       background: `rebeccapurple`,
       marginBottom: `1.45rem`,
@@ -13,9 +32,10 @@ const Header = ({ siteTitle }) => (
       style={{
         margin: `0 auto`,
         maxWidth: 960,
-        padding: `1.45rem 1.0875rem`,
+        padding: `0rem 1.0875rem`,
       }}
     >
+    <div class="headerNav">
       <h1 style={{ margin: 0 }}>
         <Link
           to="/"
@@ -24,11 +44,18 @@ const Header = ({ siteTitle }) => (
             textDecoration: `none`,
           }}
         >
-          {siteTitle}
+          {data.strapiHeaderhome.title}
         </Link>
       </h1>
+      <NavHeader />
+      </div>
+
+      <Img fluid={data.strapiHeaderhome.headerimage.childImageSharp.fluid}/>
     </div>
+    
   </header>
+  )}
+  />
 )
 
 Header.propTypes = {
@@ -40,3 +67,7 @@ Header.defaultProps = {
 }
 
 export default Header
+
+
+
+
